@@ -6,9 +6,9 @@
 
 .container {
   min-height: 622px;
-  max-width: 600px;
+  max-width: 850px;
   margin: 66px auto;
-  width: 100%;
+  width: 100%; 
   padding: 40px;
   background-color: grey;
   border-radius: 10px;
@@ -27,6 +27,10 @@ h1 {
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+  height: 46px;
+}
+::placeholder {
+  padding: 20px;
 }
 
 .todo-btn {
@@ -155,8 +159,8 @@ h1 {
 
   .container {
     padding: 20px;
-    min-height: 922px;
-    width: 100%;
+    min-height: 80vh;
+    width: 100%
   }
 
   h1 {

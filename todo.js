@@ -27,72 +27,80 @@ form.addEventListener('submit', function (event) {
 
 //a function that renders todos
 const renderTodos = (arr) => {
-  const todoDiv = document.createElement('div');
-  todoDiv.classList.add('todoDiv');
+  todoList.innerHTML = ''; // Clear existing todo items
 
-  // create todo item ui and append to todoDiv
-  const li = document.createElement('li');
-  li.classList.add('todo-item');
-  todoDiv.appendChild(li);
-
-  //create checkbutton
-  const checkButton = document.createElement('button');
-  checkButton.innerHTML = '<i class="fa fa-check"></i>';
-  checkButton.classList.add('check');
-  todoDiv.appendChild(checkButton);
-
-  //create deletebutton
-  const deleteButton = document.createElement('button');
-  deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
-  deleteButton.classList.add('trash');
-  todoDiv.appendChild(deleteButton);
-
-  //loop through todos-array
-  for (i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     const todoItem = arr[i];
-    //added todo item into ui
-    li.innerHTML = todoItem;
+
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add('todoDiv');
+
+    const li = document.createElement('li');
+    li.classList.add('todo-item');
+    li.innerText = todoItem;
+    todoDiv.appendChild(li);
+
+    const checkButton = document.createElement('button');
+checkButton.innerHTML = '<i class="fa-solid fa-check-to-slot"></i>';
+checkButton.classList.add('check');
+checkButton.addEventListener('click', function () {
+  toggleTodoCompleted(todoDiv);
+});
+todoDiv.appendChild(checkButton);
+
+const deleteButton = document.createElement('button');
+deleteButton.innerHTML = '<i class="fa-sharp fa-solid fa-trash-can"></i>';
+deleteButton.classList.add('trash');
+deleteButton.addEventListener('click', function () {
+  deleteTodoItem(todoDiv);
+});
+todoDiv.appendChild(deleteButton);
+
 
     todoList.appendChild(todoDiv);
   }
+};
+
+// function to toggle todo item completed status
+const toggleTodoCompleted = (todoDiv) => {
+  const todoItem = todoDiv.querySelector('.todo-item');
+  todoItem.classList.toggle('completed');
+};
+
+
+// function to delete todo item
+const deleteTodoItem = (todoDiv) => {
+  const todoItem = todoDiv.querySelector('.todo-item').textContent;
+  const index = todos.indexOf(todoItem);
+  if (index > -1) {
+    todos.splice(index, 1);
+  }
+  todoDiv.remove();
 };
 
 // know which todo you are clicking
 todoList.addEventListener('click', function (event) {
   const target = event.target;
 
-  // if the target of our event has a class equal to trash
-  if (target.classList[0] === 'trash') {
+  if (
+    target.classList.contains('fa-sharp') ||
+    target.classList.contains('fa-solid') ||
+    target.classList.contains('fa-trash-can')
+  ) {
     console.log('delete');
+    deleteTodoItem(target.parentElement);
+  }
 
-
-
-    // write your delete here
-     // if the target of our event has a class equal to trash
-  if (target.classList[0] === 'trash') {
-    console.log('delete');
-
-    // Get the parent element (todoDiv) of the trash button
-    const todoDiv = target.parentElement;
-
-    // Remove the todoDiv from the DOM
-    todoDiv.remove();
-
-    // Remove the corresponding todo from the todos array
-    const todoItem = todoDiv.querySelector('.todo-item').innerText;
-    const index = todos.indexOf(todoItem);
-    if (index > -1) {
-      todos.splice(index, 1);
-    }
-  }}
-
-
-
-
-
-  if (target.classList[0] === 'check') {
-    console.log('checkeeed');
+  if (
+    target.classList.contains('fa-solid') ||
+    target.classList.contains('fa-check-to-slot')
+  ) {
+    console.log('checked');
+    toggleTodoCompleted(target.parentElement);
   }
 
   console.log(target);
-}); 
+});
+
+
+

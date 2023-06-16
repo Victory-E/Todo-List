@@ -164,8 +164,20 @@ h1 {
   }
 
   h1 {
-    font-size: 24px;
+    padding: 20px 0px 14px;
+    font-size: 34px;
     margin-bottom: 20px;
+  }
+  input{
+    width: 300px;
+  }
+  ::placeholder {
+    padding: 20px;
+    margin-left: 110px;
+    font-size: 26px;
+  }
+  button{
+    width: 150px;
   }
 
   .todo-btn {
